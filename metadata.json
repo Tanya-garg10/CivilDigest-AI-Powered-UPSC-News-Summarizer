@@ -1,0 +1,6 @@
+{
+  "name": "CivilDigest",
+  "description": "An AI-powered news analysis tool for UPSC aspirants. Paste any news URL to instantly generate exam-ready five-point summaries, subject classifications, keywords, practice MCQs, and detailed daily revision sheets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
