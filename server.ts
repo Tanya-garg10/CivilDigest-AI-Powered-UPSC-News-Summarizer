@@ -74,9 +74,9 @@ async function scrapeArticle(newsUrl: string) {
           if (jobId) {
             console.log(`[AnakinScraper] Job started with ID: ${jobId}. Polling for results...`);
             
-            // Poll up to 10 times, 3 seconds apart
-            for (let i = 0; i < 10; i++) {
-              await new Promise(res => setTimeout(res, 3000));
+            // Poll up to 15 times, 5 seconds apart
+            for (let i = 0; i < 15; i++) {
+              await new Promise(res => setTimeout(res, 5000));
               
               const pollResp = await fetch(`${startEndpoint}/${jobId}`, {
                 method: "GET",
@@ -106,6 +106,12 @@ async function scrapeArticle(newsUrl: string) {
                       .replace(/<[^>]*>/g, ' ')
                       .replace(/\s+/g, ' ')
                       .trim();
+                  }
+
+                  // Truncate to avoid Gemini token overload (keep first 12000 chars)
+                  if (extractedText.length > 12000) {
+                    extractedText = extractedText.slice(0, 12000);
+                    console.log(`[AnakinScraper] Truncated content to 12000 chars for Gemini.`);
                   }
                 }
                 break; // Break polling loop
@@ -308,6 +314,7 @@ Instructions:
 
 You must reply with JSON adhering perfectly to the schema.`;
 
+    console.log(`[Gemini] Sending prompt (${promptMessage.length} chars) to Gemini...`);
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: promptMessage,
@@ -320,10 +327,18 @@ You must reply with JSON adhering perfectly to the schema.`;
 
     const responseText = response.text;
     if (!responseText) {
-      throw new Error("Empty response received from LLM engine");
+      console.error("[Gemini] Empty response received.", response);
+      throw new Error("Empty response received from Gemini. The content may have been blocked or the model timed out.");
     }
+    console.log(`[Gemini] Response received (${responseText.length} chars).`);
 
-    const upscResult = JSON.parse(responseText);
+    let upscResult;
+    try {
+      upscResult = JSON.parse(responseText);
+    } catch (parseErr) {
+      console.error("[Gemini] JSON parse failed:", responseText.slice(0, 300));
+      throw new Error("Gemini returned malformed JSON. Please try again.");
+    }
 
     res.json({
       success: true,
