@@ -14,8 +14,6 @@
 
 </div>
 
----
-
 ## 🎯 What is CivilDigest?
 
 CivilDigest is a full-stack AI-powered study companion designed specifically for **UPSC Civil Services aspirants**. It takes any current affairs news URL (The Hindu, Indian Express, PIB, LiveMint, etc.) and uses **Anakin Scraper** to extract content from paywalled/protected articles, then feeds it to **Google Gemini 2.5 Flash** to generate:
@@ -25,8 +23,6 @@ CivilDigest is a full-stack AI-powered study companion designed specifically for
 - 🔑 **Key UPSC Terminology** — Extracts 5–8 crucial keywords for answer enhancement
 - ❓ **Prelims-Standard MCQ** — AI-generated practice questions with deep analytical explanations
 - 📝 **Daily Revision Sheet** — Structured Markdown notes covering Syllabus Context, Core Arguments, Prelims Facts, Mains Angles, and Way Forward
-
----
 
 ## ✨ Features
 
@@ -71,8 +67,6 @@ CivilDigest is a full-stack AI-powered study companion designed specifically for
 - User-scoped data isolation in Firestore
 - No sign-up friction — start using immediately
 
----
-
 ## 🛠 Tech Stack
 
 | Layer | Technology |
@@ -87,8 +81,6 @@ CivilDigest is a full-stack AI-powered study companion designed specifically for
 | **Auth** | Firebase Anonymous Authentication |
 | **Build Tool** | Vite 6 |
 | **Dev Server** | TSX (TypeScript execution) |
-
----
 
 ## 🚀 Getting Started
 
@@ -138,8 +130,6 @@ CivilDigest is a full-stack AI-powered study companion designed specifically for
 npm run build
 npm start
 ```
-
----
 
 ## 🏗 Architecture
 
@@ -196,9 +186,7 @@ User pastes URL → Frontend POST /api/analyze
               Save to Firestore → Render in UI
 ```
 
----
-
-## 📡 API Reference
+### 📡 API Reference
 
 ### `POST /api/analyze`
 
@@ -235,8 +223,6 @@ Analyzes a news article URL and returns structured UPSC study material.
 }
 ```
 
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
@@ -247,13 +233,9 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
----
-
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
-
----
 
 <div align="center">
 
